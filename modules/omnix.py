@@ -86,8 +86,8 @@ class Omnix:
         # chrome_options.add_argument('--headless')
         driver = webdriver.Chrome(options=chrome_options)
         driver.get(url)
-        time.sleep(1)
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(1)
 
         # Get the full HTML content of the page
         html_content = driver.page_source

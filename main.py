@@ -9,24 +9,28 @@ from settings import RANDOM_WALLET, SLEEP_TO, SLEEP_FROM, IS_SLEEP, AMOUNT_MIN, 
 def main():
     if RANDOM_WALLET:
         random.shuffle(ACCOUNTS)
-
     for j, key in enumerate(ACCOUNTS):
-        if MINT_NEW_NFTS is True:
-            omnix = Omnix(key)
-            omnix.mint_and_bridge(int(random.uniform(AMOUNT_MIN, AMOUNT_MAX)))
+        try:
+            if MINT_NEW_NFTS is True:
+                omnix = Omnix(key)
+                omnix.mint_and_bridge(int(random.uniform(AMOUNT_MIN, AMOUNT_MAX)))
 
-            if j + 1 < len(ACCOUNTS) and IS_SLEEP:
-                time.sleep(random.randint(SLEEP_FROM, SLEEP_TO))
-        if MINT_NEW_NFTS is False:
-            omnix = Omnix(key)
-            nft_ids = omnix.get_owned_nfts_from_explorer(ACCOUNTS[j])  # Get list of NFT ids
-            nft_ids_int = [int(id) for id in nft_ids]
-            print(nft_ids)
-            quantity = int(random.uniform(AMOUNT_MIN, AMOUNT_MAX))
-            omnix.bridge_with_no_mint(quantity, nft_ids_int)
+                if j + 1 < len(ACCOUNTS) and IS_SLEEP:
+                    time.sleep(random.randint(SLEEP_FROM, SLEEP_TO))
+            if MINT_NEW_NFTS is False:
+                omnix = Omnix(key)
+                nft_ids = omnix.get_owned_nfts_from_explorer(ACCOUNTS[j])  # Get list of NFT ids
+                nft_ids_int = [int(id) for id in nft_ids]
+                print(nft_ids)
+                quantity = int(random.uniform(AMOUNT_MIN, AMOUNT_MAX))
+                omnix.bridge_with_no_mint(quantity, nft_ids_int)
 
-            if j + 1 < len(ACCOUNTS) and IS_SLEEP:
-                time.sleep(random.randint(SLEEP_FROM, SLEEP_TO))
+                if j + 1 < len(ACCOUNTS) and IS_SLEEP:
+                    time.sleep(random.randint(SLEEP_FROM, SLEEP_TO))
+        except Exception:
+            print("Some super rare shit go wrong.")
+            continue
+
 
 
 if __name__ == '__main__':

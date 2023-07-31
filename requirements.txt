@@ -1,5 +1,6 @@
-loguru==0.7.0
-requests==2.31.0
-web3==6.7.0
+loguru
+requests
+web3
 beautifulsoup4
-seleniumwire
+selenium-wire
+selenium
